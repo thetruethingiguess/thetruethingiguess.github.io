@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>sorting algorithm</title>
+  <link rel="icon" type="image/x-icon" href="logo.png">
+</head>
+
+<body>
+  <h1>sorting algorithm</h1>
+  <p><a href="./index.html">< index.html</a> Replacement Placeholder4</p>
+  
+  <input type="text" id="numbers" name="numbers"  placeholder="5 3 2 4 1">
+  <button id="scrambleButton">scramble</button>
+  
+  <form>
+    <label for="sort">Choose a sort:</label>
+    <select name="sort" id="sort">
+      <option value="bubble">bubble</option>
+      <option value="bogo">bogo</option>
+      <option value="merge">merge</option>
+      <option value="insertion">insertion</option>
+      <option value="selection">selection</option>
+      <option value="quick">quick</option>
+    </select>
+    <input type="submit" id="sortButton" value="Submit">
+  </form>
+  
+  <p id="arrayOutput">[1 2 3 4 5]</p>
+  <p id="solvedtime">Solved in 0.00 milliseconds.</p>
+  
+  <script>
+document.getElementById('scrambleButton').addEventListener('click', function() {
+      let numbersInput = document.getElementById('numbers').value;
+      let numbers = numbersInput.split(' ').map(Number);
+      // Fisher-Yates Shuffle
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+      // Display the shuffled array
+      document.getElementById('arrayOutput').textContent = `[${numbers.join(' ')}]`;
+    });
+    function bubbleSort(array) {
+      let swapped = true;
+      for (let i = 0; i < array.length - 1 && swapped; i++) {
+        swapped = false;
+        for (let j = 0; j < array.length - i - 1; j++) {
+          if (array[j] > array[j + 1]) {
+            [array[j], array[j + 1]] = [array[j + 1], array[j]];
+            swapped = true;
+          }
+        }
+      }
+      return array;
+    }
+    
+    function bogoSort(array) {
+      let isSorted = false;
+      while (!isSorted) {
+        // Shuffle the array randomly
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        // Check if the array is sorted
+        isSorted = true;
+        for (let i = 0; i < array.length - 1; i++) {
+          if (array[i] > array[i + 1]) {
+            isSorted = false;
+            break;
+          }
+        }
+      }
+      return array;
+    }
+    
+    function mergeSort(array) {
+      if (array.length === 1) {
+        return array;
+      }
+      const middle = Math.floor(array.length / 2);
+      const left = array.slice(0, middle);
+      const right = array.slice(middle);
+      return merge(mergeSort(left), mergeSort(right));
+    }
+    function merge(left, right) {
+      let result = [];
+      let i = 0;
+      let j = 0;
+      while (i < left.length && j < right.length) {
+        if (left[i] < right[j]) {
+          result.push(left[i]);
+          i++;
+        } else {
+          result.push(right[j]);
+          j++;
+        }
+      }
+      while (i < left.length) {
+        result.push(left[i]);
+        i++;
+      }
+      while (j < right.length) {
+        result.push(right[j]);
+        j++;
+      }
+      return result;
+    }
+
+    function insertionSort(array) {
+      for (let i = 1; i < array.length; i++) {
+        let key = array[i];
+        let j = i - 1;
+        while (j >= 0 && array[j] > key) {
+          array[j + 1] = array[j];
+          j = j - 1;
+        }
+        array[j + 1] = key;
+      }
+      return array;
+    }
+
+    function selectionSort(array) {
+      for (let i = 0; i < array.length - 1; i++) {
+        let minIndex = i;
+        for (let j = i + 1; j < array.length; j++) {
+          if (array[j] < array[minIndex]) {
+            minIndex = j;
+          }
+        }
+        [array[i], array[minIndex]] = [array[minIndex], array[i]];
+      }
+      return array;
+    }
+
+    function quickSort(array) {
+    if (array.length <= 1) {
+        return array;
+      }
+      let pivotIndex = Math.floor(array.length / 2);
+      let pivot = array[pivotIndex];
+      let less = [];
+      let greater = [];
+      for (let i = 0; i < array.length; i++) {
+        if (i !== pivotIndex) {
+          if (array[i] < pivot) {
+            less.push(array[i]);
+          } else {
+            greater.push(array[i]);
+          }
+        }
+      }
+      return [...quickSort(less), pivot, ...quickSort(greater)];
+    }
+    
+document.getElementById('sortButton').addEventListener('click', function(event) {
+      event.preventDefault();
+      let numbersInput = document.getElementById('numbers').value;
+      let numbers = numbersInput.split(' ').map(Number);
+      let selectedSort = document.getElementById('sort').value;
+      let startTime = performance.now(); 
+      let sortedArray;
+      switch (selectedSort) {
+        case "bubble":
+          sortedArray = bubbleSort(numbers);
+          break;
+        case "bogo":
+          sortedArray = bogoSort(numbers);
+          break;
+        case "merge":
+          sortedArray = mergeSort(numbers);
+          break;
+        case "insertion":
+          sortedArray = insertionSort(numbers);
+          break;
+        case "selection":
+          sortedArray = selectionSort(numbers);
+          break;
+        case "quick":
+          sortedArray = quickSort(numbers);
+          break;
+      }
+  
+      let endTime = performance.now();
+      let elapsedTime = endTime - startTime;
+      document.getElementById('arrayOutput').textContent = `[${sortedArray.join(' ')}]`;
+      document.getElementById('solvedtime').textContent = `Solved in ${elapsedTime.toFixed(2)} milliseconds.`;
+    });
+  </script>
+</body>
+
+</html>

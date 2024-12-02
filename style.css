@@ -1,0 +1,19 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: lightblue url("texture.png");
+}
+
+.myDiv {
+  border: 5px outset red;
+  background-color: lightblue;
+  text-align: center;
+}
+
+.p {
+  font-family: "verdana", sans-serif;
+  color: snow;
+}
