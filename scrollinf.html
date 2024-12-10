@@ -1,0 +1,58 @@
+<a href="./index.html"><p>< index.html</p></a>
+<pre>
+scroll the page to see the effect
+the easiest way to do this is to scroll down (with js code)
+there is no end theoretically you can scroll down forever
+
+h
+h
+h
+h
+h5
+h
+h
+h
+h
+h10
+h
+h
+h
+h
+h15
+h
+h
+h
+h
+h20
+h
+h
+h
+h
+h25
+h
+h
+h
+h
+h30
+h
+h
+h
+h
+h35
+</pre>
+<style>
+   pre {
+     margin: 0 auto;
+     width: fit-content;
+   }
+</style>
+<script>
+   var x = 35;
+   document.addEventListener( 'scroll', function () {
+      for (let i = 0; i < 10; i++) {
+         x = x + 5;
+         var pre = document.querySelector( 'pre' );
+         pre.innerText = pre.innerText + 'h\nh\nh\nh\nh'+x+'\n'
+      }
+      });
+</script>

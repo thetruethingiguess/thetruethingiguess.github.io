@@ -9,3 +9,4 @@ document.getElementById("unixtime").textContent = "Unix Time: " + timestamp
 
 document.getElementById("innerHTML").textContent = "Date: " + new Date().toLocaleString()
 },1000);
+

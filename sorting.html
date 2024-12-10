@@ -27,6 +27,9 @@
     </select>
     <input type="submit" id="sortButton" value="Submit">
   </form>
+
+  <input type="checkbox" id="live" name="live" value="live">
+  <label for="live"> watch the actions (not done) [speed:] not done</label>
   
   <p id="arrayOutput">[1 2 3 4 5]</p>
   <p id="solvedtime">Solved in 0.00 milliseconds.</p>
@@ -41,7 +44,9 @@ document.getElementById('scrambleButton').addEventListener('click', function() {
         [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
       }
       // Display the shuffled array
-      document.getElementById('arrayOutput').textContent = `[${numbers.join(' ')}]`;
+
+
+document.getElementById('arrayOutput').textContent = `[${numbers.join(' ')}]`;
     });
     function bubbleSort(array) {
       let swapped = true;
@@ -56,7 +61,6 @@ document.getElementById('scrambleButton').addEventListener('click', function() {
       }
       return array;
     }
-    
     function bogoSort(array) {
       let isSorted = false;
       while (!isSorted) {
@@ -76,7 +80,6 @@ document.getElementById('scrambleButton').addEventListener('click', function() {
       }
       return array;
     }
-    
     function mergeSort(array) {
       if (array.length === 1) {
         return array;
@@ -109,7 +112,6 @@ document.getElementById('scrambleButton').addEventListener('click', function() {
       }
       return result;
     }
-
     function insertionSort(array) {
       for (let i = 1; i < array.length; i++) {
         let key = array[i];
@@ -122,7 +124,6 @@ document.getElementById('scrambleButton').addEventListener('click', function() {
       }
       return array;
     }
-
     function selectionSort(array) {
       for (let i = 0; i < array.length - 1; i++) {
         let minIndex = i;
@@ -135,7 +136,6 @@ document.getElementById('scrambleButton').addEventListener('click', function() {
       }
       return array;
     }
-
     function quickSort(array) {
     if (array.length <= 1) {
         return array;
@@ -155,12 +155,13 @@ document.getElementById('scrambleButton').addEventListener('click', function() {
       }
       return [...quickSort(less), pivot, ...quickSort(greater)];
     }
-    
+
 document.getElementById('sortButton').addEventListener('click', function(event) {
       event.preventDefault();
       let numbersInput = document.getElementById('numbers').value;
       let numbers = numbersInput.split(' ').map(Number);
       let selectedSort = document.getElementById('sort').value;
+
       let startTime = performance.now(); 
       let sortedArray;
       switch (selectedSort) {
@@ -187,8 +188,9 @@ document.getElementById('sortButton').addEventListener('click', function(event) 
       let endTime = performance.now();
       let elapsedTime = endTime - startTime;
       document.getElementById('arrayOutput').textContent = `[${sortedArray.join(' ')}]`;
-      document.getElementById('solvedtime').textContent = `Solved in ${elapsedTime.toFixed(2)} milliseconds.`;
+document.getElementById('solvedtime').textContent = `Solved in ${elapsedTime.toFixed(2)} milliseconds.`;
     });
+
   </script>
 </body>
 
